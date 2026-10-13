@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Qichen Wang Portfolio</title>
+<meta name="description" content="Qichen Wang is a Virginia Tech engineering student (Electrical Engineering) building robots, wearables and embedded systems. Projects, photos and demo videos.">
+<meta name="author" content="Qichen Wang">
+<link rel="canonical" href="https://qichenwang06.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Qichen Wang | Hardware & Robotics Portfolio">
+<meta property="og:description" content="Virginia Tech engineering student building robots, wearables and embedded systems.">
+<meta property="og:url" content="https://qichenwang06.github.io/">
+<meta property="og:image" content="https://qichenwang06.github.io/img/p10-a038_professor-robot_person-with-robot-front.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Person", "name": "Qichen Wang", "url": "https://qichenwang06.github.io/",
+  "email": "mailto:qichenwang06@gmail.com", "jobTitle": "Electrical Engineering student",
+  "alumniOf": {"@type": "CollegeOrUniversity", "name": "Virginia Tech"},
+  "knowsAbout": ["Robotics", "Embedded systems", "Servo control", "ESP32", "Arduino", "CAD"],
+  "sameAs": ["https://www.linkedin.com/in/qichenwang06"]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@112,600;112,800;100,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: engineering-drawing sheet. Name + robot up top, a parts-list style project register,
+   then one "sheet" per project with a title block, notes, and a photo grid. */
+:root {
+  --bg: #f2f4f1;
+  --surface: #ffffff;
+  --ink: #15201a;
+  --muted: #56635b;
+  --line: #c9d2cb;
+  --accent: #15704a;      /* solder-mask green */
+  --accent-ink: #ffffff;
+  --accent-soft: #dcebe2;
+  --warn: #9a5b00;
+  --warn-soft: #f6e8cf;
+  --shadow: 0 1px 2px rgb(20 32 26 / .06), 0 8px 24px rgb(20 32 26 / .06);
+  --f-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --s1: .8125rem; --s2: .9375rem; --s3: 1.0625rem; --s4: 1.375rem; --s5: 2rem; --s6: clamp(2.6rem, 7vw, 4.75rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1310; --surface: #141c18; --ink: #e5ece7; --muted: #97a59c; --line: #2a3630;
+    --accent: #5cc08b; --accent-ink: #08130d; --accent-soft: #1b3326; --warn: #e8b260; --warn-soft: #3a2c14;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1310; --surface: #141c18; --ink: #e5ece7; --muted: #97a59c; --line: #2a3630;
+  --accent: #5cc08b; --accent-ink: #08130d; --accent-soft: #1b3326; --warn: #e8b260; --warn-soft: #3a2c14;
+  --shadow: 0 1px 2px rgb(0 0 0 / .3); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 var(--s3)/1.6 var(--f-body);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px; background-attachment: fixed;
+  background-blend-mode: normal;
+}
+body::before { content: ""; position: fixed; inset: 0; background: var(--bg); opacity: .86; z-index: -1; pointer-events: none; }
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+h1, h2, h3, h4 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); padding-block: 0 48px; }
+
+.eyebrow, .label {
+  font: 500 var(--s1)/1.3 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+}
+
+/* nav */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px;
+  padding-block: 14px; background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { font: 800 var(--s3)/1 var(--f-display); font-stretch: 112%; color: var(--ink); text-decoration: none; letter-spacing: .01em; }
+.top ul { display: flex; flex-wrap: wrap; gap: 4px 20px; list-style: none; margin: 0; padding: 0; }
+.top ul a { font: 500 var(--s2)/1 var(--f-body); color: var(--muted); text-decoration: none; }
+.top ul a:hover { color: var(--ink); }
+
+/* hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .9fr); gap: clamp(24px, 5vw, 64px); align-items: center; padding-block: clamp(32px, 6vw, 72px); }
+.hero-text { display: grid; gap: 20px; min-width: 0; }
+.hero h1 { font: 800 var(--s6)/.95 var(--f-display); font-stretch: 112%; letter-spacing: -.01em; }
+.hero-lede { font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 34ch; color: var(--ink); }
+.hero-links { display: flex; flex-wrap: wrap; gap: 12px; list-style: none; margin: 4px 0 0; padding: 0; }
+.btn { display: inline-block; padding: 11px 20px; border-radius: 4px; background: var(--accent); color: var(--accent-ink); font: 600 var(--s2)/1 var(--f-body); text-decoration: none; border: 1px solid var(--accent); }
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn:hover { filter: brightness(1.08); }
+.hero-fig { margin: 0; min-width: 0; }
+.hero-fig .ph { aspect-ratio: 4 / 5; border-radius: 6px; border: 1px solid var(--line); }
+.hero-fig figcaption { margin-top: 10px; font: 400 var(--s1)/1.4 var(--f-mono); color: var(--muted); }
+.hero-fig figcaption span { color: var(--accent); margin-right: 6px; }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); }
+.skills > div { padding: 18px 20px 20px 0; display: grid; gap: 8px; align-content: start; }
+.skills > div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.skills p { font-size: var(--s2); color: var(--ink); }
+
+/* sections */
+.sec-h { font: 800 var(--s5)/1.1 var(--f-display); font-stretch: 112%; margin-block: clamp(48px, 8vw, 88px) 24px; }
+
+/* featured */
+.feat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.feat { display: grid; grid-template-rows: auto 1fr; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; color: var(--ink); text-decoration: none; box-shadow: var(--shadow); transition: transform .2s ease, border-color .2s ease; }
+.feat:hover { transform: translateY(-3px); border-color: var(--accent); }
+.feat-img { aspect-ratio: 4 / 3; overflow: hidden; background: var(--line); }
+.feat-img img { width: 100%; height: 100%; object-fit: cover; }
+.feat-body { padding: 18px 20px 20px; display: grid; gap: 6px; align-content: start; }
+.feat-body h3 { font: 800 var(--s4)/1.15 var(--f-display); font-stretch: 112%; }
+.feat-body > p:not(.eyebrow) { color: var(--muted); font-size: var(--s2); }
+.feat-stats { list-style: none; margin: 8px 0 0; padding: 10px 0 0; border-top: 1px dashed var(--line); display: flex; flex-wrap: wrap; gap: 4px 16px; font: 400 var(--s1)/1.4 var(--f-mono); color: var(--muted); }
+.feat-stats b { color: var(--accent); font-weight: 500; }
+
+/* project register */
+.index { list-style: none; margin: 0 0 24px; padding: 0; border-top: 2px solid var(--ink); }
+.index a { display: grid; grid-template-columns: 56px 9rem minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.index a:hover { background: var(--accent-soft); }
+.index img { width: 56px; height: 42px; object-fit: cover; border-radius: 3px; }
+.ix-code, .ix-date { font: 400 var(--s1)/1.3 var(--f-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.ix-title { font-weight: 600; }
+
+/* project sheet */
+.proj { margin-top: clamp(48px, 7vw, 80px); padding-top: 24px; border-top: 2px solid var(--ink); scroll-margin-top: 72px; }
+.proj-head { display: grid; gap: 6px; margin-bottom: 18px; }
+.proj-head h3 { font: 800 clamp(1.7rem, 4vw, 2.5rem)/1.05 var(--f-display); font-stretch: 112%; }
+.proj-sub { color: var(--muted); font-size: var(--s3); }
+
+.tb { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 0 28px; border: 1px solid var(--ink); background: var(--surface); }
+.tb > div { padding: 8px 12px 10px; min-width: 0; }
+.tb > div + div { border-left: 1px solid var(--ink); }
+.tb dt { font: 500 .6875rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tb dd { margin: 2px 0 0; font: 500 var(--s2)/1.35 var(--f-mono); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.st { display: inline-block; padding: 1px 8px; border-radius: 99px; font-size: var(--s1); }
+.st-active, .st-complete { background: var(--accent-soft); color: var(--accent); }
+.st-in { background: var(--warn-soft); color: var(--warn); }
+
+.proj-main { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+.proj-text { display: grid; gap: 18px; min-width: 0; }
+.proj-media { min-width: 0; display: grid; gap: 12px; }
+.lede { font-size: var(--s3); max-width: 62ch; }
+.sub-h { font: 600 var(--s1)/1.3 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); display: flex; gap: 8px; align-items: baseline; }
+.count { color: var(--muted); font-weight: 400; }
+.group-h { font: 600 var(--s2)/1.3 var(--f-body); color: var(--muted); margin-top: 8px; }
+.pts { margin: -8px 0 0; padding-left: 1.1em; display: grid; gap: 6px; font-size: var(--s2); }
+.pts li::marker { color: var(--accent); }
+
+.stats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); border: 1px solid var(--line); background: var(--surface); }
+.stats li { padding: 12px 14px; display: grid; gap: 2px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; }
+.stats b { font: 800 1.75rem/1 var(--f-display); font-stretch: 112%; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stats span { font-size: var(--s1); color: var(--muted); }
+
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li { font: 400 var(--s1)/1 var(--f-mono); padding: 6px 9px; border: 1px solid var(--line); border-radius: 3px; background: var(--surface); }
+
+.log { display: grid; gap: 8px; }
+.log-empty { padding: 14px 16px; border: 1px dashed var(--line); border-radius: 4px; color: var(--muted); font-size: var(--s2); }
+.entry { display: grid; gap: 4px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.entry time { font: 400 var(--s1)/1.3 var(--f-mono); color: var(--accent); }
+
+/* galleries */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); gap: 6px; }
+.ph { display: block; width: 100%; padding: 0; border: 0; background: var(--line); cursor: zoom-in; overflow: hidden; border-radius: 3px; aspect-ratio: 1; }
+.ph img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s ease; }
+.ph:hover img { transform: scale(1.04); }
+.more-btn { justify-self: start; font: 500 var(--s2)/1 var(--f-body); padding: 10px 14px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.more-btn:hover { border-color: var(--accent); }
+.vids { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.vid { margin: 0; display: grid; gap: 6px; }
+.vid video { width: 100%; aspect-ratio: 9 / 16; object-fit: contain; background: #000; border-radius: 4px; }
+.vid figcaption { font: 400 var(--s1)/1.3 var(--f-mono); color: var(--muted); }
+
+/* contact */
+.contact { margin-top: 24px; display: grid; gap: 16px; }
+.contact > p:first-of-type { font-size: var(--s3); }
+.contact-rows { display: grid; border-top: 2px solid var(--ink); }
+.c-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.c-row .label { width: 7rem; }
+.c-val { font: 500 var(--s3)/1.3 var(--f-mono); user-select: all; overflow-wrap: anywhere; }
+a.c-val { user-select: auto; }
+.copy { font: 500 var(--s1)/1 var(--f-body); padding: 7px 12px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.foot { margin-top: 24px; font: 400 var(--s1)/1.4 var(--f-mono); color: var(--muted); }
+
+/* lightbox */
+dialog#lb { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgb(8 12 10 / .94); color: #e5ece7; }
+dialog#lb::backdrop { background: rgb(8 12 10 / .7); }
+#lb figure { margin: 0; height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 10px; padding: 56px 64px 20px; }
+#lb img { width: 100%; height: 100%; object-fit: contain; }
+#lb figcaption { display: flex; justify-content: space-between; gap: 16px; font: 400 var(--s1)/1.4 var(--f-mono); color: #b9c6be; }
+.lb-btn { position: absolute; border: 0; background: rgb(255 255 255 / .1); color: #fff; width: 44px; height: 44px; border-radius: 50%; font-size: 26px; line-height: 1; cursor: pointer; }
+.lb-btn:hover { background: rgb(255 255 255 / .2); }
+.lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
+.lb-close { right: 12px; top: 12px; }
+
+/* responsive */
+@media (max-width: 900px) {
+  .feat-grid { grid-template-columns: minmax(0, 1fr); }
+  .feat { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); grid-template-rows: none; }
+  .feat-img { aspect-ratio: auto; min-height: 180px; }
+  .proj-main { grid-template-columns: minmax(0, 1fr); }
+  .skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skills > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .skills > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+@media (max-width: 640px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-fig { max-width: 360px; }
+  .feat { grid-template-columns: minmax(0, 1fr); }
+  .feat-img { aspect-ratio: 4 / 3; min-height: 0; }
+  .skills { grid-template-columns: minmax(0, 1fr); }
+  .skills > div, .skills > div + div { padding-left: 0; border-left: 0; }
+  .skills > div + div { border-top: 1px solid var(--line); }
+  .tb { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tb > div:nth-child(3) { border-left: 0; }
+  .tb > div:nth-child(n+3) { border-top: 1px solid var(--ink); }
+  .index a { grid-template-columns: 48px minmax(0, 1fr); gap: 4px 12px; }
+  .index img { width: 48px; height: 48px; grid-row: span 2; }
+  .ix-code { display: none; }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #lb figure { padding: 56px 8px 72px; }
+  .lb-prev, .lb-next { top: auto; bottom: 16px; transform: none; }
+}
+
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<nav class="top" aria-label="Main">
+  <a class="brand" href="#top">Qichen Wang</a>
+  <ul>
+    <li><a href="#featured">Featured</a></li>
+    <li><a href="#projects">All projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-text">
+    <p class="eyebrow">Virginia Tech · Engineering · Class of 2030</p>
+    <h1>Qichen Wang</h1>
+    <p class="hero-lede">Engineering student heading into Electrical Engineering. I build robots, wearables and embedded gadgets, from CAD and wiring through to the code that moves them.</p>
+    <ul class="hero-links">
+      <li><a class="btn" href="#featured">See the projects</a></li>
+      <li><a class="btn ghost" href="https://www.linkedin.com/in/qichenwang06" target="_blank" rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+  <figure class="hero-fig">
+    <button class="ph" data-full="img/p10-a038_professor-robot_person-with-robot-front.jpg" data-gallery="hero" data-cap="Qichen with The Professor">
+      <img src="img/p10-a038_professor-robot_person-with-robot-front.jpg" alt="Qichen standing next to The Professor robot" fetchpriority="high">
+    </button>
+    <figcaption><span>P10</span> The Professor, TSJ Foundation, 2025</figcaption>
+  </figure>
+</header>
+
+<section class="skills" aria-label="Skills">
+  <div><h2 class="label">Electrical &amp; robotics</h2><p>Servo control, Pololu Maestro, ESP32, Arduino, circuit analysis, component selection, datasheet analysis, power budgeting</p></div>
+  <div><h2 class="label">Programming</h2><p>C++ (Arduino IDE), Python, MATLAB</p></div>
+  <div><h2 class="label">CAD</h2><p>SolidWorks, Autodesk Inventor, AutoCAD, Fusion 360, OpenVSP</p></div>
+  <div><h2 class="label">Lab &amp; fabrication</h2><p>Soldering, oscilloscope, multimeter, bench supply, breadboarding, 3D printing, laser cutting</p></div>
+</section>
+
+<section id="featured" class="featured" aria-labelledby="featured-h">
+  <h2 id="featured-h" class="sec-h">Featured work</h2>
+  <div class="feat-grid">
+    <a class="feat" href="#professor">
+  <div class="feat-img"><img src="img/p10-a024_professor-robot_whole-robot-angle.jpg" alt="The Professor" loading="eager"></div>
+  <div class="feat-body">
+    <p class="eyebrow">P10 · Jul 2025 – Present</p>
+    <h3>The Professor</h3>
+    <p>Interactive educational robot</p>
+    <ul class="feat-stats"><li><b>10</b> servos integrated</li><li><b>5</b> DOF per arm</li></ul>
+  </div>
+</a><a class="feat" href="#prosthesis">
+  <div class="feat-img"><img src="img/p08-a001_prosthesis_bottle-grasp.jpg" alt="Transradial Prosthesis" loading="lazy"></div>
+  <div class="feat-body">
+    <p class="eyebrow">P08 · Sep 2024 – Feb 2025</p>
+    <h3>Transradial Prosthesis</h3>
+    <p>Two-degree-of-freedom prototype</p>
+    <ul class="feat-stats"><li><b>2</b> degrees of freedom</li><li><b>0.6 kg</b> load lifted</li></ul>
+  </div>
+</a><a class="feat" href="#gas-detector">
+  <div class="feat-img"><img src="img/p05-a005_gas-detector_lit-led-matrix.jpg" alt="Wearable Gas Detector" loading="lazy"></div>
+  <div class="feat-body">
+    <p class="eyebrow">P05 · Jan 2025</p>
+    <h3>Wearable Gas Detector</h3>
+    <p>Glove-mounted sensor and LED display</p>
+    
+  </div>
+</a>
+  </div>
+</section>
+
+<section id="projects" aria-labelledby="projects-h">
+  <h2 id="projects-h" class="sec-h">All projects</h2>
+  <ol class="index">
+    <li><a href="#professor"><img src="thumb/p10-a024_professor-robot_whole-robot-angle.jpg" alt="" loading="lazy"><span class="ix-code">P10</span><span class="ix-title">The Professor</span><span class="ix-date">Jul 2025 – Present</span></a></li><li><a href="#prosthesis"><img src="thumb/p08-a001_prosthesis_bottle-grasp.jpg" alt="" loading="lazy"><span class="ix-code">P08</span><span class="ix-title">Transradial Prosthesis</span><span class="ix-date">Sep 2024 – Feb 2025</span></a></li><li><a href="#gas-detector"><img src="thumb/p05-a005_gas-detector_lit-led-matrix.jpg" alt="" loading="lazy"><span class="ix-code">P05</span><span class="ix-title">Wearable Gas Detector</span><span class="ix-date">Jan 2025</span></a></li><li><a href="#desktop-gadget"><img src="thumb/p04-a011_desktop-gadget_complete-assembly.jpg" alt="" loading="lazy"><span class="ix-code">P04</span><span class="ix-title">ESP32 Desktop Gadget</span><span class="ix-date">Oct 2026</span></a></li><li><a href="#pc-builds"><img src="thumb/p02-a005_pc-build-03_illuminated-interior.jpg" alt="" loading="lazy"><span class="ix-code">P01 · P02 · P07</span><span class="ix-title">PC Builds</span><span class="ix-date">Feb 2024 – Aug 2026</span></a></li><li><a href="#coffin"><img src="thumb/p03-a006_coffin_internal-mechanism.jpg" alt="" loading="lazy"><span class="ix-code">P03</span><span class="ix-title">Animated Coffin</span><span class="ix-date">Jun 2024</span></a></li><li><a href="#model-house"><img src="thumb/p09-a008_model-house_assembled-model.jpg" alt="" loading="lazy"><span class="ix-code">P09</span><span class="ix-title">Wired Model House</span><span class="ix-date">May 2023</span></a></li><li><a href="#maze-robot"><img src="thumb/p06-a014_maze-robot_robot-in-maze.jpg" alt="" loading="lazy"><span class="ix-code">P06</span><span class="ix-title">Maze Navigation Robot</span><span class="ix-date">Nov 2022</span></a></li>
+  </ol>
+  
+<section class="proj" id="professor" aria-labelledby="professor-h">
+  <header class="proj-head">
+    <p class="eyebrow">Theresa Sondra Jacobs Foundation · Ashburn, VA</p>
+    <h3 id="professor-h">The Professor</h3>
+    <p class="proj-sub">Interactive educational robot</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P10</dd></div>
+  <div><dt>Date</dt><dd>Jul 2025 – Present</dd></div>
+  <div><dt>Role</dt><dd>Robotics &amp; Embedded Systems Engineer</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-active">Active</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">The Professor is the TSJ Foundation&#x27;s first interactive educational robot, built for STEM outreach. Qichen joined a project already in progress and redesigned the body plan to add two working arms.</p>
+      <ul class="stats"><li><b>10</b><span>servos integrated</span></li><li><b>5</b><span>DOF per arm</span></li><li><b>3</b><span>coordinated motions</span></li><li><b>50</b><span>Maestro sequence frames</span></li></ul>
+      <h4 class="sub-h">What I built</h4><ul class="pts"><li>Installed both arms, including the arm-to-shoulder gear train and servo connections.</li><li>Built a chest foundation that secures the shoulder servos, gears and chassis to the main body.</li><li>Integrated 10 servos across the chest and arm assemblies, with 5 degrees of freedom per arm.</li><li>Programmed 3 motions in Pololu Maestro Control Center by tuning servo position, speed and acceleration across 50 sequence frames.</li></ul><h4 class="sub-h">The three motions</h4><ul class="pts"><li><b>Hug.</b> Raises both arms and bends the elbows into a hug.</li><li><b>Point the way.</b> Raises the arms, turns them sideways and points in a direction.</li><li><b>Wave.</b> Raises an arm, bends the elbow and turns it side to side.</li></ul><h4 class="sub-h">Credits</h4><ul class="pts"><li>The body shell, head and waist components, and the initial arm CAD, came from the team before me. I reworked their plan so the body could carry arms, then built and programmed them.</li></ul>
+      <ul class="tags" aria-label="Tools and skills"><li>Pololu Maestro</li><li>ESP32</li><li>Servo control</li><li>Gear &amp; linkage assembly</li><li>Wiring &amp; power</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for The Professor: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      <h4 class="sub-h">Demonstrations</h4><div class="vids"><figure class="vid"><video controls preload="none" playsinline poster="thumb/p10-a030_professor-robot_robot-motion-clip-01-poster.jpg"><source src="video/p10-a030_professor-robot_robot-motion-clip-01.mp4" type="video/mp4"></video><figcaption>Motion demo 1</figcaption></figure><figure class="vid"><video controls preload="none" playsinline poster="thumb/p10-a031_professor-robot_robot-motion-clip-02-poster.jpg"><source src="video/p10-a031_professor-robot_robot-motion-clip-02.mp4" type="video/mp4"></video><figcaption>Motion demo 2</figcaption></figure><figure class="vid"><video controls preload="none" playsinline poster="thumb/p10-a033_professor-robot_robot-motion-clip-03-poster.jpg"><source src="video/p10-a033_professor-robot_robot-motion-clip-03.mp4" type="video/mp4"></video><figcaption>Motion demo 3</figcaption></figure><figure class="vid"><video controls preload="none" playsinline poster="thumb/p10-a034_professor-robot_robot-motion-clip-04-poster.jpg"><source src="video/p10-a034_professor-robot_robot-motion-clip-04.mp4" type="video/mp4"></video><figcaption>Motion demo 4</figcaption></figure></div>
+      <h4 class="sub-h">Photos <span class="count">41</span></h4>
+      <div class="grid"><button class="ph" data-full="img/p10-a001_professor-robot_arm-cad-view.jpg" data-gallery="professor" data-cap="Arm CAD view"><img src="thumb/p10-a001_professor-robot_arm-cad-view.jpg" alt="Arm CAD view" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a002_professor-robot_workshop-and-robot.jpg" data-gallery="professor" data-cap="Workshop and robot"><img src="thumb/p10-a002_professor-robot_workshop-and-robot.jpg" alt="Workshop and robot" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a003_professor-robot_head-and-torso.jpg" data-gallery="professor" data-cap="Head and torso"><img src="thumb/p10-a003_professor-robot_head-and-torso.jpg" alt="Head and torso" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a004_professor-robot_components-on-workbench.jpg" data-gallery="professor" data-cap="Components on workbench"><img src="thumb/p10-a004_professor-robot_components-on-workbench.jpg" alt="Components on workbench" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a005_professor-robot_arm-mechanism.jpg" data-gallery="professor" data-cap="Arm mechanism"><img src="thumb/p10-a005_professor-robot_arm-mechanism.jpg" alt="Arm mechanism" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a006_professor-robot_internal-wiring.jpg" data-gallery="professor" data-cap="Internal wiring"><img src="thumb/p10-a006_professor-robot_internal-wiring.jpg" alt="Internal wiring" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a007_professor-robot_esp32-controller.jpg" data-gallery="professor" data-cap="ESP32 controller"><img src="thumb/p10-a007_professor-robot_esp32-controller.jpg" alt="ESP32 controller" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a008_professor-robot_servo-closeup.jpg" data-gallery="professor" data-cap="Servo closeup"><img src="thumb/p10-a008_professor-robot_servo-closeup.jpg" alt="Servo closeup" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a009_professor-robot_arm-on-workbench-01.jpg" data-gallery="professor" data-cap="Arm on workbench 1"><img src="thumb/p10-a009_professor-robot_arm-on-workbench-01.jpg" alt="Arm on workbench 1" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a010_professor-robot_arm-on-workbench-02.jpg" data-gallery="professor" data-cap="Arm on workbench 2"><img src="thumb/p10-a010_professor-robot_arm-on-workbench-02.jpg" alt="Arm on workbench 2" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a011_professor-robot_workshop-people-01.jpg" data-gallery="professor" data-cap="Workshop people 1"><img src="thumb/p10-a011_professor-robot_workshop-people-01.jpg" alt="Workshop people 1" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a012_professor-robot_workshop-people-02.jpg" data-gallery="professor" data-cap="Workshop people 2"><img src="thumb/p10-a012_professor-robot_workshop-people-02.jpg" alt="Workshop people 2" loading="lazy" decoding="async"></button></div><div class="grid more" id="more-professor" hidden><button class="ph" data-full="img/p10-a013_professor-robot_controller-wiring.jpg" data-gallery="professor" data-cap="Controller wiring"><img src="thumb/p10-a013_professor-robot_controller-wiring.jpg" alt="Controller wiring" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a014_professor-robot_outreach-robots-01.jpg" data-gallery="professor" data-cap="Outreach robots 1"><img src="thumb/p10-a014_professor-robot_outreach-robots-01.jpg" alt="Outreach robots 1" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a015_professor-robot_outreach-robots-02.jpg" data-gallery="professor" data-cap="Outreach robots 2"><img src="thumb/p10-a015_professor-robot_outreach-robots-02.jpg" alt="Outreach robots 2" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a017_professor-robot_whole-robot-front.jpg" data-gallery="professor" data-cap="Whole robot front"><img src="thumb/p10-a017_professor-robot_whole-robot-front.jpg" alt="Whole robot front" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a018_professor-robot_whole-robot-side.jpg" data-gallery="professor" data-cap="Whole robot side"><img src="thumb/p10-a018_professor-robot_whole-robot-side.jpg" alt="Whole robot side" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a019_professor-robot_torso-servo-closeup.jpg" data-gallery="professor" data-cap="Torso servo closeup"><img src="thumb/p10-a019_professor-robot_torso-servo-closeup.jpg" alt="Torso servo closeup" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a020_professor-robot_front-torso-mechanism.jpg" data-gallery="professor" data-cap="Front torso mechanism"><img src="thumb/p10-a020_professor-robot_front-torso-mechanism.jpg" alt="Front torso mechanism" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a021_professor-robot_rear-torso-mechanism.jpg" data-gallery="professor" data-cap="Rear torso mechanism"><img src="thumb/p10-a021_professor-robot_rear-torso-mechanism.jpg" alt="Rear torso mechanism" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a022_professor-robot_front-torso-with-arms.jpg" data-gallery="professor" data-cap="Front torso with arms"><img src="thumb/p10-a022_professor-robot_front-torso-with-arms.jpg" alt="Front torso with arms" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a023_professor-robot_arm-assembly-on-bench.jpg" data-gallery="professor" data-cap="Arm assembly on bench"><img src="thumb/p10-a023_professor-robot_arm-assembly-on-bench.jpg" alt="Arm assembly on bench" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a024_professor-robot_whole-robot-angle.jpg" data-gallery="professor" data-cap="Whole robot angle"><img src="thumb/p10-a024_professor-robot_whole-robot-angle.jpg" alt="Whole robot angle" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a025_professor-robot_shoulder-gears.jpg" data-gallery="professor" data-cap="Shoulder gears"><img src="thumb/p10-a025_professor-robot_shoulder-gears.jpg" alt="Shoulder gears" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a026_professor-robot_torso-assembly.jpg" data-gallery="professor" data-cap="Torso assembly"><img src="thumb/p10-a026_professor-robot_torso-assembly.jpg" alt="Torso assembly" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a027_professor-robot_chest-mechanism.jpg" data-gallery="professor" data-cap="Chest mechanism"><img src="thumb/p10-a027_professor-robot_chest-mechanism.jpg" alt="Chest mechanism" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a028_professor-robot_chest-wiring.jpg" data-gallery="professor" data-cap="Chest wiring"><img src="thumb/p10-a028_professor-robot_chest-wiring.jpg" alt="Chest wiring" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a032_professor-robot_whole-robot-front.jpg" data-gallery="professor" data-cap="Whole robot front"><img src="thumb/p10-a032_professor-robot_whole-robot-front.jpg" alt="Whole robot front" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a035_professor-robot_robot-rear-view.jpg" data-gallery="professor" data-cap="Robot rear view"><img src="thumb/p10-a035_professor-robot_robot-rear-view.jpg" alt="Robot rear view" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a036_professor-robot_robot-side-view.jpg" data-gallery="professor" data-cap="Robot side view"><img src="thumb/p10-a036_professor-robot_robot-side-view.jpg" alt="Robot side view" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a037_professor-robot_person-with-robot-side.jpg" data-gallery="professor" data-cap="Person with robot side"><img src="thumb/p10-a037_professor-robot_person-with-robot-side.jpg" alt="Person with robot side" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a038_professor-robot_person-with-robot-front.jpg" data-gallery="professor" data-cap="Person with robot front"><img src="thumb/p10-a038_professor-robot_person-with-robot-front.jpg" alt="Person with robot front" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a039_professor-robot_controller-wiring-closeup-01.jpg" data-gallery="professor" data-cap="Controller wiring closeup 1"><img src="thumb/p10-a039_professor-robot_controller-wiring-closeup-01.jpg" alt="Controller wiring closeup 1" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a040_professor-robot_base-electronics.jpg" data-gallery="professor" data-cap="Base electronics"><img src="thumb/p10-a040_professor-robot_base-electronics.jpg" alt="Base electronics" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a041_professor-robot_arm-on-workbench-03.jpg" data-gallery="professor" data-cap="Arm on workbench 3"><img src="thumb/p10-a041_professor-robot_arm-on-workbench-03.jpg" alt="Arm on workbench 3" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a042_professor-robot_arm-on-workbench-04.jpg" data-gallery="professor" data-cap="Arm on workbench 4"><img src="thumb/p10-a042_professor-robot_arm-on-workbench-04.jpg" alt="Arm on workbench 4" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a043_professor-robot_paired-arm-assemblies.jpg" data-gallery="professor" data-cap="Paired arm assemblies"><img src="thumb/p10-a043_professor-robot_paired-arm-assemblies.jpg" alt="Paired arm assemblies" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a044_professor-robot_esp32-controller-closeup.jpg" data-gallery="professor" data-cap="ESP32 controller closeup"><img src="thumb/p10-a044_professor-robot_esp32-controller-closeup.jpg" alt="ESP32 controller closeup" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a045_professor-robot_printer-workspace.jpg" data-gallery="professor" data-cap="Printer workspace"><img src="thumb/p10-a045_professor-robot_printer-workspace.jpg" alt="Printer workspace" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a046_professor-robot_controller-wiring-closeup-02.jpg" data-gallery="professor" data-cap="Controller wiring closeup 2"><img src="thumb/p10-a046_professor-robot_controller-wiring-closeup-02.jpg" alt="Controller wiring closeup 2" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p10-a047_professor-robot_controller-wiring-closeup-03.jpg" data-gallery="professor" data-cap="Controller wiring closeup 3"><img src="thumb/p10-a047_professor-robot_controller-wiring-closeup-03.jpg" alt="Controller wiring closeup 3" loading="lazy" decoding="async"></button></div><button class="more-btn" data-target="more-professor" aria-expanded="false">Show all 41 photos</button>
+    </div>
+  </div>
+</section>
+<section class="proj" id="prosthesis" aria-labelledby="prosthesis-h">
+  <header class="proj-head">
+    <p class="eyebrow">Independent project</p>
+    <h3 id="prosthesis-h">Transradial Prosthesis</h3>
+    <p class="proj-sub">Two-degree-of-freedom prototype</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P08</dd></div>
+  <div><dt>Date</dt><dd>Sep 2024 – Feb 2025</dd></div>
+  <div><dt>Role</dt><dd>Design &amp; build</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-complete">Complete</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">A transradial (below-elbow) prosthesis prototype designed in Autodesk Inventor, with a gripper and wrist rotation.</p>
+      <ul class="stats"><li><b>2</b><span>degrees of freedom</span></li><li><b>0.6 kg</b><span>load lifted</span></li></ul>
+      <h4 class="sub-h">What I built</h4><ul class="pts"><li>Designed a two-degree-of-freedom prosthesis for gripping and wrist rotation in Autodesk Inventor.</li><li>Printed and iterated several gripper versions (yellow and blue parts in the photos).</li><li>Demonstrated the prototype lifting a 0.6 kg load and measured its power consumption.</li></ul>
+      <ul class="tags" aria-label="Tools and skills"><li>Autodesk Inventor</li><li>3D printing</li><li>Servo actuation</li><li>Power measurement</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for Transradial Prosthesis: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      
+      <h4 class="sub-h">Photos <span class="count">5</span></h4>
+      <div class="grid"><button class="ph" data-full="img/p08-a001_prosthesis_bottle-grasp.jpg" data-gallery="prosthesis" data-cap="Bottle grasp"><img src="thumb/p08-a001_prosthesis_bottle-grasp.jpg" alt="Bottle grasp" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p08-a002_prosthesis_assembled-prototype.jpg" data-gallery="prosthesis" data-cap="Assembled prototype"><img src="thumb/p08-a002_prosthesis_assembled-prototype.jpg" alt="Assembled prototype" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p08-a003_prosthesis_component-variants.jpg" data-gallery="prosthesis" data-cap="Component variants"><img src="thumb/p08-a003_prosthesis_component-variants.jpg" alt="Component variants" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p08-a004_prosthesis_yellow-component-front.jpg" data-gallery="prosthesis" data-cap="Yellow component front"><img src="thumb/p08-a004_prosthesis_yellow-component-front.jpg" alt="Yellow component front" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p08-a005_prosthesis_yellow-component-angle.jpg" data-gallery="prosthesis" data-cap="Yellow component angle"><img src="thumb/p08-a005_prosthesis_yellow-component-angle.jpg" alt="Yellow component angle" loading="lazy" decoding="async"></button></div>
+    </div>
+  </div>
+</section>
+<section class="proj" id="gas-detector" aria-labelledby="gas-detector-h">
+  <header class="proj-head">
+    <p class="eyebrow">Independent project</p>
+    <h3 id="gas-detector-h">Wearable Gas Detector</h3>
+    <p class="proj-sub">Glove-mounted sensor and LED display</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P05</dd></div>
+  <div><dt>Date</dt><dd>Jan 2025</dd></div>
+  <div><dt>Role</dt><dd>Design &amp; build</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-complete">Complete</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">A gas detector worn on the hand. The electronics were prototyped on a breadboard with an Arduino, then moved into a 3D-printed enclosure mounted on a glove, with an 8×8 LED matrix for the readout.</p>
+      
+      
+      <ul class="tags" aria-label="Tools and skills"><li>Arduino</li><li>Breadboarding</li><li>8×8 LED matrix</li><li>3D printing</li><li>Soldering</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for Wearable Gas Detector: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      
+      <h4 class="sub-h">Photos <span class="count">8</span></h4>
+      <div class="grid"><button class="ph" data-full="img/p05-a001_gas-detector_enclosure-and-components.jpg" data-gallery="gas-detector" data-cap="Enclosure and components"><img src="thumb/p05-a001_gas-detector_enclosure-and-components.jpg" alt="Enclosure and components" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p05-a002_gas-detector_breadboard-electronics.jpg" data-gallery="gas-detector" data-cap="Breadboard electronics"><img src="thumb/p05-a002_gas-detector_breadboard-electronics.jpg" alt="Breadboard electronics" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p05-a003_gas-detector_glove-assembly.jpg" data-gallery="gas-detector" data-cap="Glove assembly"><img src="thumb/p05-a003_gas-detector_glove-assembly.jpg" alt="Glove assembly" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p05-a004_gas-detector_powered-glove.jpg" data-gallery="gas-detector" data-cap="Powered glove"><img src="thumb/p05-a004_gas-detector_powered-glove.jpg" alt="Powered glove" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p05-a005_gas-detector_lit-led-matrix.jpg" data-gallery="gas-detector" data-cap="Lit LED matrix"><img src="thumb/p05-a005_gas-detector_lit-led-matrix.jpg" alt="Lit LED matrix" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p05-a006_gas-detector_mirror-photo.jpg" data-gallery="gas-detector" data-cap="Mirror photo"><img src="thumb/p05-a006_gas-detector_mirror-photo.jpg" alt="Mirror photo" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p05-a007_gas-detector_powered-electronics-closeup.jpg" data-gallery="gas-detector" data-cap="Powered electronics closeup"><img src="thumb/p05-a007_gas-detector_powered-electronics-closeup.jpg" alt="Powered electronics closeup" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p05-a008_gas-detector_glove-wiring-closeup.jpg" data-gallery="gas-detector" data-cap="Glove wiring closeup"><img src="thumb/p05-a008_gas-detector_glove-wiring-closeup.jpg" alt="Glove wiring closeup" loading="lazy" decoding="async"></button></div>
+    </div>
+  </div>
+</section>
+<section class="proj" id="desktop-gadget" aria-labelledby="desktop-gadget-h">
+  <header class="proj-head">
+    <p class="eyebrow">Personal project</p>
+    <h3 id="desktop-gadget-h">ESP32 Desktop Gadget</h3>
+    <p class="proj-sub">Multi-display desk companion</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P04</dd></div>
+  <div><dt>Date</dt><dd>Oct 2026</dd></div>
+  <div><dt>Role</dt><dd>Design &amp; build</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-in">In progress</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">A desk gadget built around an ESP32 board, combining an OLED screen, a 4-digit 7-segment display, a sensor module and joystick input on a 3D-printed stand.</p>
+      
+      
+      <ul class="tags" aria-label="Tools and skills"><li>ESP32</li><li>OLED display</li><li>7-segment display</li><li>Joystick input</li><li>3D printing</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for ESP32 Desktop Gadget: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      
+      <h4 class="sub-h">Photos <span class="count">11</span></h4>
+      <div class="grid"><button class="ph" data-full="img/p04-a001_desktop-gadget_printer-workspace.jpg" data-gallery="desktop-gadget" data-cap="Printer workspace"><img src="thumb/p04-a001_desktop-gadget_printer-workspace.jpg" alt="Printer workspace" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a002_desktop-gadget_oled-module.jpg" data-gallery="desktop-gadget" data-cap="OLED module"><img src="thumb/p04-a002_desktop-gadget_oled-module.jpg" alt="OLED module" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a003_desktop-gadget_blue-sensor-module.jpg" data-gallery="desktop-gadget" data-cap="Blue sensor module"><img src="thumb/p04-a003_desktop-gadget_blue-sensor-module.jpg" alt="Blue sensor module" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a004_desktop-gadget_esp32-breadboard.jpg" data-gallery="desktop-gadget" data-cap="ESP32 breadboard"><img src="thumb/p04-a004_desktop-gadget_esp32-breadboard.jpg" alt="ESP32 breadboard" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a005_desktop-gadget_module-board-array.jpg" data-gallery="desktop-gadget" data-cap="Module board array"><img src="thumb/p04-a005_desktop-gadget_module-board-array.jpg" alt="Module board array" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a006_desktop-gadget_esp32-board.jpg" data-gallery="desktop-gadget" data-cap="ESP32 board"><img src="thumb/p04-a006_desktop-gadget_esp32-board.jpg" alt="ESP32 board" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a007_desktop-gadget_bench-assembly.jpg" data-gallery="desktop-gadget" data-cap="Bench assembly"><img src="thumb/p04-a007_desktop-gadget_bench-assembly.jpg" alt="Bench assembly" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a008_desktop-gadget_joystick-interaction.jpg" data-gallery="desktop-gadget" data-cap="Joystick interaction"><img src="thumb/p04-a008_desktop-gadget_joystick-interaction.jpg" alt="Joystick interaction" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a009_desktop-gadget_breadboard-displays.jpg" data-gallery="desktop-gadget" data-cap="Breadboard displays"><img src="thumb/p04-a009_desktop-gadget_breadboard-displays.jpg" alt="Breadboard displays" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a010_desktop-gadget_joystick-interaction-angle.jpg" data-gallery="desktop-gadget" data-cap="Joystick interaction angle"><img src="thumb/p04-a010_desktop-gadget_joystick-interaction-angle.jpg" alt="Joystick interaction angle" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p04-a011_desktop-gadget_complete-assembly.jpg" data-gallery="desktop-gadget" data-cap="Complete assembly"><img src="thumb/p04-a011_desktop-gadget_complete-assembly.jpg" alt="Complete assembly" loading="lazy" decoding="async"></button></div>
+    </div>
+  </div>
+</section>
+<section class="proj" id="pc-builds" aria-labelledby="pc-builds-h">
+  <header class="proj-head">
+    <p class="eyebrow">Personal projects</p>
+    <h3 id="pc-builds-h">PC Builds</h3>
+    <p class="proj-sub">Three desktop systems, assembled and configured</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P01 · P02 · P07</dd></div>
+  <div><dt>Date</dt><dd>Feb 2024 – Aug 2026</dd></div>
+  <div><dt>Role</dt><dd>Assembly &amp; configuration</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-complete">Complete</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">Three desktop PCs, from parts selection to first boot, including UEFI and Secure Boot configuration.</p>
+      <ul class="stats"><li><b>3</b><span>systems built</span></li></ul>
+      
+      <ul class="tags" aria-label="Tools and skills"><li>Component selection</li><li>Cable management</li><li>UEFI / Secure Boot setup</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for PC Builds: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      
+      <h4 class="sub-h">Photos <span class="count">18</span></h4>
+      <h4 class="group-h">Build 3 · Aug 2026</h4><div class="grid"><button class="ph" data-full="img/p02-a001_pc-build-03_two-pc-towers.jpg" data-gallery="pc-builds" data-cap="Two PC towers"><img src="thumb/p02-a001_pc-build-03_two-pc-towers.jpg" alt="Two PC towers" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p02-a002_pc-build-03_open-case-wiring.jpg" data-gallery="pc-builds" data-cap="Open case wiring"><img src="thumb/p02-a002_pc-build-03_open-case-wiring.jpg" alt="Open case wiring" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p02-a003_pc-build-03_power-connector.jpg" data-gallery="pc-builds" data-cap="Power connector"><img src="thumb/p02-a003_pc-build-03_power-connector.jpg" alt="Power connector" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p02-a004_pc-build-03_illuminated-case.jpg" data-gallery="pc-builds" data-cap="Illuminated case"><img src="thumb/p02-a004_pc-build-03_illuminated-case.jpg" alt="Illuminated case" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p02-a005_pc-build-03_illuminated-interior.jpg" data-gallery="pc-builds" data-cap="Illuminated interior"><img src="thumb/p02-a005_pc-build-03_illuminated-interior.jpg" alt="Illuminated interior" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p02-a006_pc-build-03_desktop-setup.jpg" data-gallery="pc-builds" data-cap="Desktop setup"><img src="thumb/p02-a006_pc-build-03_desktop-setup.jpg" alt="Desktop setup" loading="lazy" decoding="async"></button></div><h4 class="group-h">Build 2 · Apr 2026 (GeForce RTX 5060)</h4><div class="grid"><button class="ph" data-full="img/p01-a001_pc-build-02_assembled-pc.jpg" data-gallery="pc-builds" data-cap="Assembled PC"><img src="thumb/p01-a001_pc-build-02_assembled-pc.jpg" alt="Assembled PC" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p01-a002_pc-build-02_component-boxes.jpg" data-gallery="pc-builds" data-cap="Component boxes"><img src="thumb/p01-a002_pc-build-02_component-boxes.jpg" alt="Component boxes" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p01-a003_pc-build-02_uefi-overview.jpg" data-gallery="pc-builds" data-cap="UEFI overview"><img src="thumb/p01-a003_pc-build-02_uefi-overview.jpg" alt="UEFI overview" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p01-a004_pc-build-02_secure-boot-settings.jpg" data-gallery="pc-builds" data-cap="Secure boot settings"><img src="thumb/p01-a004_pc-build-02_secure-boot-settings.jpg" alt="Secure boot settings" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p01-a005_pc-build-02_boot-message.jpg" data-gallery="pc-builds" data-cap="Boot message"><img src="thumb/p01-a005_pc-build-02_boot-message.jpg" alt="Boot message" loading="lazy" decoding="async"></button></div><h4 class="group-h">Build 1 · Feb 2024 (GeForce RTX 4070)</h4><div class="grid"><button class="ph" data-full="img/p07-a001_pc-build-01_graphics-card-box.jpg" data-gallery="pc-builds" data-cap="Graphics card box"><img src="thumb/p07-a001_pc-build-01_graphics-card-box.jpg" alt="Graphics card box" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p07-a002_pc-build-01_graphics-card-closeup.jpg" data-gallery="pc-builds" data-cap="Graphics card closeup"><img src="thumb/p07-a002_pc-build-01_graphics-card-closeup.jpg" alt="Graphics card closeup" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p07-a003_pc-build-01_component-collection.jpg" data-gallery="pc-builds" data-cap="Component collection"><img src="thumb/p07-a003_pc-build-01_component-collection.jpg" alt="Component collection" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p07-a004_pc-build-01_parts-on-workbench.jpg" data-gallery="pc-builds" data-cap="Parts on workbench"><img src="thumb/p07-a004_pc-build-01_parts-on-workbench.jpg" alt="Parts on workbench" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p07-a005_pc-build-01_illuminated-case.jpg" data-gallery="pc-builds" data-cap="Illuminated case"><img src="thumb/p07-a005_pc-build-01_illuminated-case.jpg" alt="Illuminated case" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p07-a006_pc-build-01_desktop-setup.jpg" data-gallery="pc-builds" data-cap="Desktop setup"><img src="thumb/p07-a006_pc-build-01_desktop-setup.jpg" alt="Desktop setup" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p07-a007_pc-build-01_illuminated-interior.jpg" data-gallery="pc-builds" data-cap="Illuminated interior"><img src="thumb/p07-a007_pc-build-01_illuminated-interior.jpg" alt="Illuminated interior" loading="lazy" decoding="async"></button></div>
+    </div>
+  </div>
+</section>
+<section class="proj" id="coffin" aria-labelledby="coffin-h">
+  <header class="proj-head">
+    <p class="eyebrow">Personal project</p>
+    <h3 id="coffin-h">Animated Coffin</h3>
+    <p class="proj-sub">Servo-driven mechanism in a laser-cut box</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P03</dd></div>
+  <div><dt>Date</dt><dd>Jun 2024</dd></div>
+  <div><dt>Role</dt><dd>Design &amp; build</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-complete">Complete</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">A laser-cut wooden coffin with an Arduino and several micro servos inside driving a moving mechanism, finished with paint and a battery pack.</p>
+      
+      
+      <ul class="tags" aria-label="Tools and skills"><li>Arduino</li><li>Micro servos</li><li>Laser cutting</li><li>Battery power</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for Animated Coffin: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      
+      <h4 class="sub-h">Photos <span class="count">6</span></h4>
+      <div class="grid"><button class="ph" data-full="img/p03-a001_coffin_unpainted-internal-wiring.jpg" data-gallery="coffin" data-cap="Unpainted internal wiring"><img src="thumb/p03-a001_coffin_unpainted-internal-wiring.jpg" alt="Unpainted internal wiring" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p03-a002_coffin_unpainted-servo-layout.jpg" data-gallery="coffin" data-cap="Unpainted servo layout"><img src="thumb/p03-a002_coffin_unpainted-servo-layout.jpg" alt="Unpainted servo layout" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p03-a003_coffin_painted-enclosure.jpg" data-gallery="coffin" data-cap="Painted enclosure"><img src="thumb/p03-a003_coffin_painted-enclosure.jpg" alt="Painted enclosure" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p03-a004_coffin_painted-enclosure-angle.jpg" data-gallery="coffin" data-cap="Painted enclosure angle"><img src="thumb/p03-a004_coffin_painted-enclosure-angle.jpg" alt="Painted enclosure angle" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p03-a005_coffin_battery-and-servos.jpg" data-gallery="coffin" data-cap="Battery and servos"><img src="thumb/p03-a005_coffin_battery-and-servos.jpg" alt="Battery and servos" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p03-a006_coffin_internal-mechanism.jpg" data-gallery="coffin" data-cap="Internal mechanism"><img src="thumb/p03-a006_coffin_internal-mechanism.jpg" alt="Internal mechanism" loading="lazy" decoding="async"></button></div>
+    </div>
+  </div>
+</section>
+<section class="proj" id="model-house" aria-labelledby="model-house-h">
+  <header class="proj-head">
+    <p class="eyebrow">Personal project</p>
+    <h3 id="model-house-h">Wired Model House</h3>
+    <p class="proj-sub">Wood-frame model with embedded wiring</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P09</dd></div>
+  <div><dt>Date</dt><dd>May 2023</dd></div>
+  <div><dt>Role</dt><dd>Design &amp; build</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-complete">Complete</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">A two-level model house built on a wooden frame, with wiring routed through the structure to a breadboard and Arduino controller.</p>
+      
+      
+      <ul class="tags" aria-label="Tools and skills"><li>Wood framing</li><li>Wiring</li><li>Breadboarding</li><li>Arduino</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for Wired Model House: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      
+      <h4 class="sub-h">Photos <span class="count">7</span></h4>
+      <div class="grid"><button class="ph" data-full="img/p09-a002_model-house_wooden-framework.jpg" data-gallery="model-house" data-cap="Wooden framework"><img src="thumb/p09-a002_model-house_wooden-framework.jpg" alt="Wooden framework" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p09-a003_model-house_framework-with-wiring.jpg" data-gallery="model-house" data-cap="Framework with wiring"><img src="thumb/p09-a003_model-house_framework-with-wiring.jpg" alt="Framework with wiring" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p09-a004_model-house_framework-wiring-layout.jpg" data-gallery="model-house" data-cap="Framework wiring layout"><img src="thumb/p09-a004_model-house_framework-wiring-layout.jpg" alt="Framework wiring layout" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p09-a005_model-house_breadboard-integration.jpg" data-gallery="model-house" data-cap="Breadboard integration"><img src="thumb/p09-a005_model-house_breadboard-integration.jpg" alt="Breadboard integration" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p09-a006_model-house_workbench-interaction.jpg" data-gallery="model-house" data-cap="Workbench interaction"><img src="thumb/p09-a006_model-house_workbench-interaction.jpg" alt="Workbench interaction" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p09-a007_model-house_controller-and-wiring.jpg" data-gallery="model-house" data-cap="Controller and wiring"><img src="thumb/p09-a007_model-house_controller-and-wiring.jpg" alt="Controller and wiring" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p09-a008_model-house_assembled-model.jpg" data-gallery="model-house" data-cap="Assembled model"><img src="thumb/p09-a008_model-house_assembled-model.jpg" alt="Assembled model" loading="lazy" decoding="async"></button></div>
+    </div>
+  </div>
+</section>
+<section class="proj" id="maze-robot" aria-labelledby="maze-robot-h">
+  <header class="proj-head">
+    <p class="eyebrow">Independent project</p>
+    <h3 id="maze-robot-h">Maze Navigation Robot</h3>
+    <p class="proj-sub">Arduino robot on a laser-cut chassis</p>
+  </header>
+  <dl class="tb">
+  <div><dt>Project</dt><dd>P06</dd></div>
+  <div><dt>Date</dt><dd>Nov 2022</dd></div>
+  <div><dt>Role</dt><dd>Design, fabrication &amp; programming</dd></div>
+  <div><dt>Status</dt><dd><span class="st st-complete">Complete</span></dd></div>
+</dl>
+  <div class="proj-main">
+    <div class="proj-text">
+      <p class="lede">A maze-navigation robot designed in Inventor and AutoCAD, with a laser-cut chassis, breadboard circuits and servo-driven wheels. Control routines are written in C++ in the Arduino IDE.</p>
+      
+      
+      <ul class="tags" aria-label="Tools and skills"><li>Arduino Uno</li><li>C++ (Arduino IDE)</li><li>Inventor / AutoCAD</li><li>Laser cutting</li><li>Servo drive</li></ul>
+      <div class="log">
+  <h4 class="sub-h">Build log</h4>
+  <!-- BUILD LOG for Maze Navigation Robot: replace the paragraph below with dated entries, e.g.
+       <article class="entry"><time>2025-08-14</time><p>What changed, what broke, what I learned.</p></article> -->
+  <p class="log-empty">Build log entries coming soon.</p>
+</div>
+    </div>
+    <div class="proj-media">
+      <h4 class="sub-h">Demonstrations</h4><div class="vids"><figure class="vid"><video controls preload="none" playsinline poster="thumb/p06-a001_maze-robot_maze-clip-01-poster.jpg"><source src="video/p06-a001_maze-robot_maze-clip-01.mp4" type="video/mp4"></video><figcaption>Maze run 1</figcaption></figure><figure class="vid"><video controls preload="none" playsinline poster="thumb/p06-a010_maze-robot_maze-clip-02-poster.jpg"><source src="video/p06-a010_maze-robot_maze-clip-02.mp4" type="video/mp4"></video><figcaption>Maze run 2</figcaption></figure></div>
+      <h4 class="sub-h">Photos <span class="count">6</span></h4>
+      <div class="grid"><button class="ph" data-full="img/p06-a002_p06-a003_maze-robot_chassis-angle-view.jpg" data-gallery="maze-robot" data-cap="Chassis angle view"><img src="thumb/p06-a002_p06-a003_maze-robot_chassis-angle-view.jpg" alt="Chassis angle view" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p06-a004_p06-a005_maze-robot_chassis-front-view.jpg" data-gallery="maze-robot" data-cap="Chassis front view"><img src="thumb/p06-a004_p06-a005_maze-robot_chassis-front-view.jpg" alt="Chassis front view" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p06-a006_p06-a007_maze-robot_chassis-top-view.jpg" data-gallery="maze-robot" data-cap="Chassis top view"><img src="thumb/p06-a006_p06-a007_maze-robot_chassis-top-view.jpg" alt="Chassis top view" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p06-a008_p06-a009_maze-robot_chassis-underside-view.jpg" data-gallery="maze-robot" data-cap="Chassis underside view"><img src="thumb/p06-a008_p06-a009_maze-robot_chassis-underside-view.jpg" alt="Chassis underside view" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p06-a012_p06-a013_maze-robot_uno-controller-closeup.jpg" data-gallery="maze-robot" data-cap="UNO controller closeup"><img src="thumb/p06-a012_p06-a013_maze-robot_uno-controller-closeup.jpg" alt="UNO controller closeup" loading="lazy" decoding="async"></button><button class="ph" data-full="img/p06-a014_maze-robot_robot-in-maze.jpg" data-gallery="maze-robot" data-cap="Robot in maze"><img src="thumb/p06-a014_maze-robot_robot-in-maze.jpg" alt="Robot in maze" loading="lazy" decoding="async"></button></div>
+    </div>
+  </div>
+</section>
+</section>
+
+<footer id="contact" class="contact">
+  <h2 class="sec-h">Contact</h2>
+  <p>Open to Summer 2027 hardware, embedded and robotics internships.</p>
+  <div class="contact-rows">
+    <div class="c-row"><span class="label">Email</span><span class="c-val" id="email">qichenwang06@gmail.com</span><button class="copy" id="copy-email" type="button" data-copy="qichenwang06@gmail.com">Copy</button></div>
+    <div class="c-row"><span class="label">LinkedIn</span><a class="c-val" href="https://www.linkedin.com/in/qichenwang06" target="_blank" rel="noopener">linkedin.com/in/qichenwang06</a></div>
+  </div>
+  <p class="foot">© 2026 Qichen Wang</p>
+</footer>
+</div>
+
+<dialog id="lb" aria-label="Photo viewer">
+  <figure>
+    <img id="lb-img" alt="">
+    <figcaption><span id="lb-cap"></span><span id="lb-n"></span></figcaption>
+  </figure>
+  <button class="lb-btn lb-prev" id="lb-prev" type="button" aria-label="Previous photo">‹</button>
+  <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Next photo">›</button>
+  <button class="lb-btn lb-close" id="lb-close" type="button" aria-label="Close">×</button>
+</dialog>
+
+<script>
+(function () {
+  // "Show all photos" toggles
+  document.querySelectorAll('.more-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = document.getElementById(b.dataset.target);
+      var open = t.hidden;
+      t.hidden = !open;
+      b.setAttribute('aria-expanded', String(open));
+      b.textContent = open ? 'Show fewer photos' : 'Show all ' + (t.children.length + t.previousElementSibling.children.length) + ' photos';
+    });
+  });
+
+  // Lightbox
+  var lb = document.getElementById('lb'), img = document.getElementById('lb-img'),
+      cap = document.getElementById('lb-cap'), num = document.getElementById('lb-n');
+  var set = [], idx = 0;
+  function show(i) {
+    idx = (i + set.length) % set.length;
+    var b = set[idx];
+    img.src = b.dataset.full; img.alt = b.dataset.cap; cap.textContent = b.dataset.cap;
+    num.textContent = (idx + 1) + ' / ' + set.length;
+  }
+  document.querySelectorAll('.ph').forEach(function (b) {
+    b.addEventListener('click', function () {
+      set = Array.prototype.slice.call(document.querySelectorAll('.ph[data-gallery="' + b.dataset.gallery + '"]'));
+      show(set.indexOf(b));
+      if (lb.showModal) lb.showModal(); else lb.setAttribute('open', '');
+    });
+  });
+  document.getElementById('lb-prev').addEventListener('click', function () { show(idx - 1); });
+  document.getElementById('lb-next').addEventListener('click', function () { show(idx + 1); });
+  document.getElementById('lb-close').addEventListener('click', function () { lb.close(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target.tagName === 'FIGURE') lb.close(); });
+  lb.addEventListener('close', function () { img.removeAttribute('src'); });
+  document.addEventListener('keydown', function (e) {
+    if (!lb.open) return;
+    if (e.key === 'ArrowLeft') show(idx - 1);
+    if (e.key === 'ArrowRight') show(idx + 1);
+  });
+  var x0 = null;
+  lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
+  });
+
+  // Only one video plays at a time
+  document.querySelectorAll('video').forEach(function (v) {
+    v.addEventListener('play', function () {
+      document.querySelectorAll('video').forEach(function (o) { if (o !== v) o.pause(); });
+    });
+  });
+
+  // Copy email
+  var c = document.getElementById('copy-email');
+  if (c) c.addEventListener('click', function () {
+    var done = function () { c.textContent = 'Copied'; setTimeout(function () { c.textContent = 'Copy'; }, 1800); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(document.getElementById('email'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); c.textContent = 'Selected';
+    };
+    try { navigator.clipboard.writeText(c.dataset.copy).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+
+</script>
+</body>
+</html>

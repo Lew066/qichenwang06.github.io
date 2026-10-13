@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://qichenwang06.github.io/sitemap.xml
